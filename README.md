@@ -1,14 +1,5 @@
 # 13 Object Relational Mapping (ORM): E-commerce Back End
 
-Internet retail, also known as e-commerce, is the largest sector of the electronics industry, having generated an estimated US$29 trillion in 2017 (Source: United Nations Conference on Trade and Development). E-commerce platforms like Shopify and WooCommerce provide a suite of services to businesses of all sizes. Due to the prevalence of these platforms, developers should understand the fundamental architecture of e-commerce sites.
-
-Your challenge is to build the back end for an e-commerce site. You’ll take a working Express.js API and configure it to use Sequelize to interact with a MySQL database.
-
-Because this application won’t be deployed, you’ll also need to create a walkthrough video that demonstrates its functionality and all of the following acceptance criteria being met. You’ll need to submit a link to the video and add it to the README of your project.
-
-Before you start, clone [the starter code](https://github.com/coding-boot-camp/fantastic-umbrella).
-
-
 ## User Story
 
 ```md
@@ -35,139 +26,106 @@ THEN I am able to successfully create, update, and delete data in my database
 
 ## Mock-Up
 
-The following animations show examples of the application's API routes being tested in Insomnia.
+Link to videos: https://drive.google.com/drive/folders/1c3p1r8kMcopeKjpJ3_lbyDFXhLaBpLWc?usp=sharing
 
-The first animation shows GET routes to return all categories, all products, and all tags being tested in Insomnia:
+```md
+In Insomnia, the user tests “GET tags,” “GET Categories,” and “GET All Products.”.
 
-![In Insomnia, the user tests “GET tags,” “GET Categories,” and “GET All Products.”.](./Assets/13-orm-homework-demo-01.gif)
+In Insomnia, the user tests “GET tag by id,” “GET Category by ID,” and “GET One Product.”
 
-The second animation shows GET routes to return a single category, a single product, and a single tag being tested in Insomnia:
-
-![In Insomnia, the user tests “GET tag by id,” “GET Category by ID,” and “GET One Product.”](./Assets/13-orm-homework-demo-02.gif)
-
-The final animation shows the POST, PUT, and DELETE routes for categories being tested in Insomnia:
-
-![In Insomnia, the user tests “DELETE Category by ID,” “CREATE Category,” and “UPDATE Category.”](./Assets/13-orm-homework-demo-03.gif)
-
-Your walkthrough video should also show the POST, PUT, and DELETE routes for products and tags being tested in Insomnia.
-
-
-## Getting Started
-
-This Challenge will require a video submission. Refer to the [Fullstack Blog Video Submission Guide](https://coding-boot-camp.github.io/full-stack/computer-literacy/video-submission-guide) for additional guidance on creating a video.
-
-You’ll need to use the [MySQL2](https://www.npmjs.com/package/mysql2) and [Sequelize](https://www.npmjs.com/package/sequelize) packages to connect your Express.js API to a MySQL database and the [dotenv package](https://www.npmjs.com/package/dotenv) to use environment variables to store sensitive data, like your MySQL username, password, and database name.
-
-Use the `schema.sql` file in the `db` folder to create your database using MySQL shell commands. Use environment variables to store sensitive data, like your MySQL username, password, and database name.
+In Insomnia, the user tests “DELETE Category by ID,” “CREATE Category,” and “UPDATE Category. “DELETE Product by ID,” “CREATE Product,” and “UPDATE Product". “DELETE Tag by ID,” “CREATE Tag,” and “UPDATE Tag
+```
 
 ### Database Models
 
-Your database should contain the following four models, including the requirements listed for each model:
+- `Category`
 
-* `Category`
+  - `id`
 
-  * `id`
-    * Integer
-    * Doesn't allow null values
-    * Set as primary key
-    * Uses auto increment
+    - Integer
+    - Doesn't allow null values
+    - Set as primary key
+    - Uses auto increment
 
-  * `category_name`
-    * String
-    * Doesn't allow null values
+  - `category_name`
+    - String
+    - Doesn't allow null values
 
-* `Product`
+- `Product`
 
-  * `id`
-    * Integer
-    * Doesn't allow null values
-    * Set as primary key
-    * Uses auto increment
+  - `id`
 
-  * `product_name`
-    * String
-    * Doesn't allow null values
+    - Integer
+    - Doesn't allow null values
+    - Set as primary key
+    - Uses auto increment
 
-  * `price`
-    * Decimal
-    * Doesn't allow null values
-    * Validates that the value is a decimal
+  - `product_name`
 
-  * `stock`
-    * Integer
-    * Doesn't allow null values
-    * Set a default value of 10
-    * Validates that the value is numeric
+    - String
+    - Doesn't allow null values
 
-  * `category_id`
-    * Integer
-    * References the `category` model's `id` 
+  - `price`
 
-* `Tag`
+    - Decimal
+    - Doesn't allow null values
+    - Validates that the value is a decimal
 
-  * `id`
-    * Integer
-    * Doesn't allow null values
-    * Set as primary key
-    * Uses auto increment
+  - `stock`
 
-  * `tag_name`
-    * String
+    - Integer
+    - Doesn't allow null values
+    - Set a default value of 10
+    - Validates that the value is numeric
 
-* `ProductTag`
+  - `category_id`
+    - Integer
+    - References the `category` model's `id`
 
-  * `id`
-    * Integer
-    * Doesn't allow null values
-    * Set as primary key
-    * Uses auto increment
+- `Tag`
 
-  * `product_id`
-    * Integer
-    * References the `product` model's `id`
+  - `id`
 
-  * `tag_id`
-    * Integer
-    * References the `tag` model's `id`
+    - Integer
+    - Doesn't allow null values
+    - Set as primary key
+    - Uses auto increment
 
-### Associations
+  - `tag_name`
+    - String
 
-You'll need to execute association methods on your Sequelize models to create the following relationships between them:
+- `ProductTag`
 
-* `Product` belongs to `Category`, as a category can have multiple products but a product can only belong to one category.
+  - `id`
 
-* `Category` has many `Product` models.
+    - Integer
+    - Doesn't allow null values
+    - Set as primary key
+    - Uses auto increment
 
-* `Product` belongs to many `Tag` models. Using the `ProductTag` through model, allow products to have multiple tags and tags to have many products.
+  - `product_id`
 
-* `Tag` belongs to many `Product` models.
+    - Integer
+    - References the `product` model's `id`
 
-**Hint**: Make sure you set up foreign key relationships that match the column we created in the respective models.
+  - `tag_id`
+    - Integer
+    - References the `tag` model's `id`
 
-### Fill out the API Routes to Perform RESTful CRUD Operations
+  ## Initalization Steps
 
-Fill out the unfinished routes in `product-routes.js`, `tag-routes.js`, and `category-routes.js` to perform create, read, update, and delete operations using your Sequelize models.
+  ```md
+  npm init
 
-**Note**: The functionality for creating the many-to-many relationship for products is already done for you.
+  npm install mysql2
 
-**Hint**: Be sure to look at your module project's code for syntax help and use your model's column definitions to figure out what `req.body` will be for POST and PUT routes!
+  npm install sequelize
 
-### Seed the Database
+  npm install express
 
-After creating the models and routes, run `npm run seed` to seed data to your database so that you can test your routes.
+  npm install dotenv
 
-### Sync Sequelize to the Database on Server Start
+  npm run seed
 
-Create the code needed in `server.js` to sync the Sequelize models to the MySQL database on server start.
-
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-* A walkthrough video demonstrating the functionality of the application and all of the acceptance criteria being met.
-
-* The URL of the GitHub repository. Give the repository a unique name and include a README describing the project.
-
-- - -
-© 2022 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+  npm run start
+  ```
